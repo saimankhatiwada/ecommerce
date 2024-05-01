@@ -1,0 +1,79 @@
+services:
+  ecommerce-api:
+    container_name: Ecommerce.Api
+    build:
+      context: .
+      dockerfile: src/Ecommerce.Api/Dockerfile
+    depends_on:
+      - ecommerce-db
+      - ecommerce-idp
+      - ecommerce-seq
+      - ecommerce-cache
+      - ecommerce-object-storage
+    networks:
+      - proxybackend
+
+  ecommerce-db:
+    image: postgres:latest
+    container_name: Ecommerce.Db
+    environment:
+      - POSTGRES_DB=ecommerce
+      - POSTGRES_USER=ecommerce_user
+      - POSTGRES_PASSWORD=9d9dfbfbfdfd@S
+    volumes:
+      - ./.containers/database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - proxybackend
+
+  ecommerce-idp:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: Ecommerce.Identity
+    command: start-dev --import-realm
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=9d9dfbfbfdfd@S
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data
+      - ./.files/cipher-realm-export.json:/opt/keycloak/data/import/realm.json
+    ports:
+      - 18080:8080
+    networks:
+      - proxybackend
+
+  ecommerce-seq:
+    image: datalust/seq:latest
+    container_name: Ecommerce.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
+    networks:
+      - proxybackend
+
+  ecommerce-cache:
+    image: redis:latest
+    container_name: Ecommerce.Cache
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - proxybackend
+
+  ecommerce-object-storage:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    container_name: Ecommerce.Object-Storage
+    volumes:
+      - ./.containers/object-storage/data:/data
+    ports:
+      - 10000:10000
+    command: "azurite-blob --blobHost 0.0.0.0 -l /data"
+    networks:
+      - proxybackend
+
+networks:
+  proxybackend:
+    name: proxybackend
+    driver: bridge

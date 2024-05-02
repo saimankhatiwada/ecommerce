@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ecommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240423141520_IdentityToDb")]
+    [Migration("20240502143104_IdentityToDb")]
     partial class IdentityToDb
     {
         /// <inheritdoc />
@@ -95,17 +95,7 @@ namespace Ecommerce.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "CustomerSupport"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "SuperAdmin"
+                            Name = "Management"
                         });
                 });
 
@@ -145,32 +135,12 @@ namespace Ecommerce.Infrastructure.Migrations
                         },
                         new
                         {
-                            RoleId = 3,
-                            PermissionId = 1
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            PermissionId = 2
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            PermissionId = 1
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            PermissionId = 2
-                        },
-                        new
-                        {
-                            RoleId = 4,
+                            RoleId = 2,
                             PermissionId = 3
                         },
                         new
                         {
-                            RoleId = 4,
+                            RoleId = 2,
                             PermissionId = 4
                         });
                 });
@@ -209,6 +179,12 @@ namespace Ecommerce.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("last_name");
+
+                    b.Property<string>("MobileNumber")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("mobile_number");
 
                     b.HasKey("Id")
                         .HasName("pk_users");

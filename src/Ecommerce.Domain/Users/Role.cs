@@ -3,9 +3,7 @@ public sealed class Role
 {
     public static readonly Role None = new(0, string.Empty);
     public static readonly Role Registered = new(1, "Registered");
-    public static readonly Role CustomerSupport = new(2, "CustomerSupport");
-    public static readonly Role Admin = new(3, "Admin");
-    public static readonly Role SuperAdmin = new(4, "SuperAdmin");
+    public static readonly Role Management = new(2, "Management");
 
     public Role(int id, string name)
     {
@@ -24,8 +22,6 @@ public sealed class Role
     public static readonly IReadOnlyCollection<Role> All = new[]
     {
         Registered,
-        CustomerSupport,
-        Admin,
-        SuperAdmin
+        Management
     };
 }

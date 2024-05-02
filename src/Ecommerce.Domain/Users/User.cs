@@ -7,12 +7,13 @@ public sealed class User : Entity<UserId>
 {
     private readonly List<Role> _roles = new();
 
-    private User(UserId id, FirstName firstName, LastName lastName, Email email, ImageName imageName)
+    private User(UserId id, FirstName firstName, LastName lastName, Email email, MobileNumber mobileNumber, ImageName imageName)
         : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
+        MobileNumber = mobileNumber;
         ImageName = imageName;
     }
 
@@ -26,15 +27,17 @@ public sealed class User : Entity<UserId>
 
     public Email Email { get; private set; }
 
+    public MobileNumber MobileNumber { get; private set; }
+
     public ImageName ImageName { get; private set; }
 
     public string IdentityId { get; private set; } = string.Empty;
 
     public IReadOnlyCollection<Role> Roles => _roles.ToList();
 
-    public static User Create(FirstName firstName, LastName lastName, Email email, ImageName imageName, Role role)
+    public static User Create(FirstName firstName, LastName lastName, Email email, MobileNumber mobileNumber, ImageName imageName, Role role)
     {
-        var user = new User(UserId.New(), firstName, lastName, email, imageName);
+        var user = new User(UserId.New(), firstName, lastName, email, mobileNumber, imageName);
 
         user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
 

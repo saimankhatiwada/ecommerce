@@ -46,6 +46,7 @@ public class UserController : ControllerBase
             request.FirstName,
             request.LastName,
             request.Password,
+            request.MObileNumber,
             request.Role,
             $"Users/{Guid.NewGuid()}{Path.GetExtension(request.ImageFile.FileName)}",
             request.ImageFile.ContentType,

@@ -64,6 +64,7 @@ namespace Ecommerce.Infrastructure.Migrations
                     first_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     last_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    mobile_number = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     image_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     identity_id = table.Column<string>(type: "text", nullable: false)
                 },
@@ -137,9 +138,7 @@ namespace Ecommerce.Infrastructure.Migrations
                 values: new object[,]
                 {
                     { 1, "Registered" },
-                    { 2, "CustomerSupport" },
-                    { 3, "Admin" },
-                    { 4, "SuperAdmin" }
+                    { 2, "Management" }
                 });
 
             migrationBuilder.InsertData(
@@ -150,12 +149,8 @@ namespace Ecommerce.Infrastructure.Migrations
                     { 1, 1 },
                     { 1, 2 },
                     { 2, 2 },
-                    { 1, 3 },
-                    { 2, 3 },
-                    { 1, 4 },
-                    { 2, 4 },
-                    { 3, 4 },
-                    { 4, 4 }
+                    { 3, 2 },
+                    { 4, 2 }
                 });
 
             migrationBuilder.CreateIndex(

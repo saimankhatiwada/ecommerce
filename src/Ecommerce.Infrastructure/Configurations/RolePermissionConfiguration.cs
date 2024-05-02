@@ -20,42 +20,22 @@ internal sealed class RolePermissionConfiguration : IEntityTypeConfiguration<Rol
             },
             new RolePermission
             {
-                RoleId = Role.CustomerSupport.Id,
+                RoleId = Role.Management.Id,
                 PermissionId = Permission.UsersReadOwn.Id
             },
             new RolePermission
             {
-                RoleId = Role.CustomerSupport.Id,
+                RoleId = Role.Management.Id,
                 PermissionId = Permission.UsersRead.Id
             },
             new RolePermission
             {
-                RoleId = Role.Admin.Id,
-                PermissionId = Permission.UsersReadOwn.Id
-            },
-            new RolePermission
-            {
-                RoleId = Role.Admin.Id,
-                PermissionId = Permission.UsersRead.Id
-            },
-            new RolePermission
-            {
-                RoleId = Role.SuperAdmin.Id,
-                PermissionId = Permission.UsersReadOwn.Id
-            },
-            new RolePermission
-            {
-                RoleId = Role.SuperAdmin.Id,
-                PermissionId = Permission.UsersRead.Id
-            },
-            new RolePermission
-            {
-                RoleId = Role.SuperAdmin.Id,
+                RoleId = Role.Management.Id,
                 PermissionId = Permission.UsersUpdate.Id
             },
             new RolePermission
             {
-                RoleId = Role.SuperAdmin.Id,
+                RoleId = Role.Management.Id,
                 PermissionId = Permission.UsersDelete.Id
             });
     }

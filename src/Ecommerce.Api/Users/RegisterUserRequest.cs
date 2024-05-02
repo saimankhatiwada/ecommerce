@@ -5,5 +5,6 @@ public sealed record RegisterUserRequest(
     string FirstName,
     string LastName,
     string Password,
+    string MObileNumber,
     string Role,
     IFormFile ImageFile);

@@ -49,7 +49,7 @@ internal sealed class BlobStorage : IBlobStorage
     {
         BlobContainerClient blobContainerClient = _blobServiceClient.GetBlobContainerClient(_blobOptions.BlobName);
 
-        await blobContainerClient!.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
+        await blobContainerClient.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
 
         BlobClient blobClient = blobContainerClient.GetBlobClient(fileName);
 

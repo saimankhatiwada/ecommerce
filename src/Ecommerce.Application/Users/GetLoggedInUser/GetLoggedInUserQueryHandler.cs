@@ -37,6 +37,7 @@ internal sealed class GetLoggedInUserQueryHandler : IQueryHandler<GetLoggedInUse
                 email AS Email,
                 first_name AS FirstName,
                 last_name AS LastName,
+                mobile_number AS MobileNumber,
                 image_name AS ImageUrl
             FROM users
             WHERE identity_id = @IdentityId

@@ -10,5 +10,7 @@ public sealed class UserResponse
 
     public string LastName { get; init; }
     
+    public string MobileNumber { get; init; }
+    
     public string ImageUrl { get; init; }
 }

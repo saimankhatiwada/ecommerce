@@ -27,6 +27,10 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(100)
             .HasConversion(email => email.Value, value => new Email(value));
 
+        builder.Property(user => user.MobileNumber)
+            .HasMaxLength(100)
+            .HasConversion(mobileNumber => mobileNumber.Value, value => new MobileNumber(value));
+
          builder.Property(user => user.ImageName)
             .HasMaxLength(100)
             .HasConversion(imageName => imageName.Value, value => new ImageName(value));

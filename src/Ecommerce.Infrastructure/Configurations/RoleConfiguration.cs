@@ -18,8 +18,6 @@ internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
 
         builder.HasData(
             Role.Registered, 
-            Role.CustomerSupport,
-            Role.Admin,
-            Role.SuperAdmin);
+            Role.Management);
     }
 }

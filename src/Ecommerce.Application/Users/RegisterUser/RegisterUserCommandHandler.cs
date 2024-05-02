@@ -33,6 +33,7 @@ internal sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserC
             new FirstName(request.FirstName),
             new LastName(request.LastName),
             new Email(request.Email),
+            new MobileNumber(request.MobileNumber),
             new ImageName(request.ImageName),
             Role.FormRole(request.Role));
 

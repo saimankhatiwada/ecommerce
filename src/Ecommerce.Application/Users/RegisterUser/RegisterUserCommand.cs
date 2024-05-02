@@ -7,6 +7,7 @@ public sealed record RegisterUserCommand(
     string FirstName,
     string LastName,
     string Password,
+    string MobileNumber,
     string Role,
     string ImageName,
     string ImageFileContentType,

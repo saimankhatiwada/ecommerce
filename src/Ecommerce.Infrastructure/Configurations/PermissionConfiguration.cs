@@ -16,6 +16,15 @@ internal sealed class PermissionConfiguration : IEntityTypeConfiguration<Permiss
             Permission.UsersReadOwn, 
             Permission.UsersRead,
             Permission.UsersUpdate,
-            Permission.UsersDelete);
+            Permission.UsersDelete,
+            Permission.CategoriesCreate,
+            Permission.CategoriesUpdate,
+            Permission.CategoriesDelete,
+            Permission.SubCategoriesCreate,
+            Permission.SubCategoriesUpdate,
+            Permission.SubCategoriesDelete,
+            Permission.ProductsCreate,
+            Permission.ProductsUpdate,
+            Permission.ProductsDelete);
     }
 }

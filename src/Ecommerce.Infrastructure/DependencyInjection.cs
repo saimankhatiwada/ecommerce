@@ -7,6 +7,9 @@ using Ecommerce.Application.Abstractions.Clock;
 using Ecommerce.Application.Abstractions.Data;
 using Ecommerce.Application.Abstractions.Storage;
 using Ecommerce.Domain.Abstractions;
+using Ecommerce.Domain.Categories;
+using Ecommerce.Domain.Products;
+using Ecommerce.Domain.SubCategories;
 using Ecommerce.Domain.Users;
 using Ecommerce.Infrastructure.Authentication;
 using Ecommerce.Infrastructure.Authorization;
@@ -69,10 +72,16 @@ public static class DependencyInjection
         string connectionString = configuration.GetConnectionString("Database") ??
                                   throw new ArgumentNullException(nameof(configuration));
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddDbContext<ApplicationDbContext>(options => 
             options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
 
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+        services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 

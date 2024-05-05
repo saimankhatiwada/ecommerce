@@ -14,7 +14,7 @@ namespace Ecommerce.Api.Users;
 
 [ApiController]
 [ApiVersion(ApiVersions.V1)]
-[Route("api/v{version:apiVersion}/user")]
+[Route("api/v{version:apiVersion}/users")]
 public class UserController : ControllerBase
 {
     private readonly ISender _sender;

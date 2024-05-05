@@ -22,6 +22,97 @@ namespace Ecommerce.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Ecommerce.Domain.Categories.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_categories");
+
+                    b.ToTable("categories", (string)null);
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Products.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("category_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(15000)
+                        .HasColumnType("character varying(15000)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("image_name");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("status");
+
+                    b.Property<Guid>("SubCategoryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("sub_category_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_products");
+
+                    b.HasIndex("CategoryId")
+                        .HasDatabaseName("ix_products_category_id");
+
+                    b.HasIndex("SubCategoryId")
+                        .HasDatabaseName("ix_products_sub_category_id");
+
+                    b.ToTable("products", (string)null);
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.SubCategories.SubCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("category_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_sub_categories");
+
+                    b.HasIndex("CategoryId")
+                        .HasDatabaseName("ix_sub_categories_category_id");
+
+                    b.ToTable("sub_categories", (string)null);
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Users.Permission", b =>
                 {
                     b.Property<int>("Id")
@@ -61,6 +152,51 @@ namespace Ecommerce.Infrastructure.Migrations
                         {
                             Id = 4,
                             Name = "users:delete"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "categories:create"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "categories:update"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "categories:delete"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "subcategories:create"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "subcategories:update"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "subcategories:delete"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "products:create"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "products:update"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "products:delete"
                         });
                 });
 
@@ -139,6 +275,51 @@ namespace Ecommerce.Infrastructure.Migrations
                         {
                             RoleId = 2,
                             PermissionId = 4
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 5
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 6
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 7
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 8
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 9
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 10
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 11
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 12
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 13
                         });
                 });
 
@@ -249,6 +430,60 @@ namespace Ecommerce.Infrastructure.Migrations
                         .HasDatabaseName("ix_role_user_users_id");
 
                     b.ToTable("role_user", (string)null);
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Products.Product", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Categories.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_products_categories_category_id");
+
+                    b.HasOne("Ecommerce.Domain.SubCategories.SubCategory", null)
+                        .WithMany()
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_products_sub_categories_sub_category_id");
+
+                    b.OwnsOne("Ecommerce.Domain.Shared.Money", "Money", b1 =>
+                        {
+                            b1.Property<Guid>("ProductId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
+
+                            b1.Property<decimal>("Amount")
+                                .HasColumnType("numeric")
+                                .HasColumnName("money_amount");
+
+                            b1.Property<string>("Currency")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("money_currency");
+
+                            b1.HasKey("ProductId");
+
+                            b1.ToTable("products");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId")
+                                .HasConstraintName("fk_products_products_id");
+                        });
+
+                    b.Navigation("Money")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.SubCategories.SubCategory", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Categories.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_sub_categories_categories_category_id");
                 });
 
             modelBuilder.Entity("Ecommerce.Domain.Users.RolePermission", b =>

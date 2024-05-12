@@ -4,6 +4,7 @@ using Ecommerce.Application.SubCategories.CreateSubCategory;
 using Ecommerce.Application.SubCategories.DeleteSubCategory;
 using Ecommerce.Application.SubCategories.GetAllSubCategory;
 using Ecommerce.Application.SubCategories.GetSubCategory;
+using Ecommerce.Application.SubCategories.GetSubCategoryName;
 using Ecommerce.Application.SubCategories.Shared;
 using Ecommerce.Application.SubCategories.UpdateSubCategory;
 using Ecommerce.Domain.Abstractions;
@@ -44,6 +45,17 @@ public class SubCategoryController : ControllerBase
         var query = new GetSubCategoryQuery(id);
 
         Result<SubCategoryResponse> result = await _sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("{id}/name")]
+    public async Task<IActionResult> GetCSubategoryName(Guid id, CancellationToken cancellationToken)
+    {
+        var query = new GetSubCategoryNameQuery(id);
+
+        Result<SubCategoryNameResponse> result = await _sender.Send(query, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }

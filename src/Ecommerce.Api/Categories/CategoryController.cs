@@ -4,6 +4,7 @@ using Ecommerce.Application.Categories.CreateCategory;
 using Ecommerce.Application.Categories.DeleteCategory;
 using Ecommerce.Application.Categories.GetAllCategory;
 using Ecommerce.Application.Categories.GetCategory;
+using Ecommerce.Application.Categories.GetCategoryName;
 using Ecommerce.Application.Categories.Shared;
 using Ecommerce.Application.Categories.UpdateCategory;
 using Ecommerce.Domain.Abstractions;
@@ -44,6 +45,17 @@ public class CategoryController : ControllerBase
         var query = new GetCategoryQuery(id);
 
         Result<CategoryResponse> result = await _sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("{id}/name")]
+    public async Task<IActionResult> GetCategoryName(Guid id, CancellationToken cancellationToken)
+    {
+        var query = new GetCategoryNameQuery(id);
+
+        Result<CategoryNameResponse> result = await _sender.Send(query, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }

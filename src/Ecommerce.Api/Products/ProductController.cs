@@ -50,7 +50,7 @@ public class ProductController : ControllerBase
 
     [HttpPost()]
     [HasPermission(Permissions.ProductsCreate)]
-    public async Task<IActionResult> CreateProduct(ProductCreateRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateProduct([FromForm]ProductCreateRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateProductCommand(
             request.CategoryId, 
@@ -73,7 +73,7 @@ public class ProductController : ControllerBase
 
     [HttpPut("{id}")]
     [HasPermission(Permissions.ProductsUpdate)]
-    public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] ProductUpdateRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateProduct(Guid id, [FromForm] ProductUpdateRequest request, CancellationToken cancellationToken)
     {
         var command = new UpdateProductCommand(
             id,

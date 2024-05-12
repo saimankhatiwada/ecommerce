@@ -42,7 +42,7 @@ internal sealed class BlobStorage : IBlobStorage
 
         await Task.CompletedTask;
 
-        return uri.ToString();
+        return uri.ToString().Replace("http://ecommerce-object-storage", "http://localhost");
     }
 
     public async Task<Result> UploadAsync(Stream stream, string contentType, string fileName, CancellationToken cancellationToken = default)
